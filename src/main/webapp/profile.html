@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile page</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="container">
+        <form class="profiledata">
+            <h2 class="form-title">User profile</h2>
+
+            <div class="form-input">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <input type="text" name="username" id="username" placeholder="Username">
+            </div>
+            <div class="form-input">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+                <input type="password" name="password" id="password" placeholder="Password">
+            </div>
+            <div class="form-input">
+                <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                <input type="text" name="age" id="age" placeholder="Age">
+            </div>
+            <div class="form-input">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <input type="tel" name="phone" id="phone" placeholder="Phone number">
+            </div>
+            <div class="two-inputs">
+                <div class="form-input">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <input type="text" name="firstname" id="first" placeholder="First Name">
+                </div>
+                <div class="form-input">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <input type="text" name="last" id="lastname" placeholder="Last Name">
+                </div>
+            </div>
+            <div class="radios">
+                <input type="radio" name="gender" value="male">Male
+                <input type="radio" name="gender" value="female">Female
+            </div>
+            <select name="role" id="role" class="form-select">
+                <option value="default">Select your role</option>
+                <option value="Guest">Guest</option>
+                <option value="Admin">Admin</option>
+            </select>
+        
+        </form>
+    </div>
+    <script type="text/javascript">
+  	
+        const form = document.querySelector(".profiledata");
+        
+       const id = location.href.split("?id=")[1]; 
+        
+        const fetchProfile = async(id)  => {
+  
+            const res = await fetch("http://localhost:8080/challenge/profile?id="+id, {
+                  
+                
+                  method: "GET",
+                headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+                  
+              });
+            
+            const data = await res.json();
+            
+            for(const i in data){
+                if(form[i]){
+                    form[i].value = data[i]
+                }
+            }
+            
+        }
+        
+        fetchProfile(id);
+        
+    </script>
+</body>
+</html>
